@@ -1,1 +1,34 @@
-Stuff
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, WebVR! - A-Frame</title>
+    <meta name="description" content="Hello, WebVR! - A-Frame">
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-sky color="#ECECEC"></a-sky>
+      <a-plane id="ground" position="0 -0.1 0" rotation="-90 0 0" width="60" height="60" color="#52BE80" static-body></a-plane>
+      
+      <a-cylinder color="red" position="0.4 0.3 -7.3" radius="0.2" height="0.5" dynamic-body>
+        <a-animation attribute="position" direction="alternate" dur="1500" repeat="indefinite" to="0.4 0.4 -7.3"></a-animation>
+      </a-cylinder>
+      <a-cylinder color="red" position="-1 0.3 -6" radius="0.2" height="0.5" dynamic-body>
+        <a-animation attribute="position" direction="alternate" dur="1500" repeat="indefinite" to="-1 0.4 -6"></a-animation>
+      </a-cylinder>
+      <a-cylinder color="red" position="0.7 0.3 -5.4" radius="0.2" height="0.5" dynamic-body>
+        <a-animation attribute="position" direction="alternate" dur="1500" repeat="indefinite" to="0.7 0.4 -5.4"></a-animation>
+      </a-cylinder>
+         
+    <a-entity id="pond" position ="0 0 -7">
+      <a-torus color="#FF69B4" radius="3" rotation="90 0 0" metalness="0.6"></a-torus>
+      <a-torus color="yellow" radius="3" rotation="90 0 0" metalness="0.6" position="0 0.7 0"></a-torus>
+      <a-ocean width="5.8" depth="3" position="0 0.3 0" amplitude="0.05" amplitude-variance="0.05" speed="0.1"></a-ocean>
+      <a-circle src="#platform" radius="3" color="#7AD2F7" rotation="-90 0 0" static-body></a-circle>
+    </a-entity>
+      
+    </a-scene>
+  </body>
+</html>
