@@ -7,20 +7,12 @@
    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.min.js"></script>
    <!--<script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>-->
    <script>
-     var score1;
-     var score2;
-     var score3;
+     var bestDuck
      
      function randomize(){
-       score1 = Math.floor(Math.random() * 10) + 1; /* creates a random number between 0 and 10 */
-       score2 = Math.floor(Math.random() * 10) + 1;
-       score3 = Math.floor(Math.random() * 10) + 1;
-       score4 = Math.floor(Math.random() * 10) + 1;
-       score5 = Math.floor(Math.random() * 10) + 1;
-       score6 = Math.floor(Math.random() * 10) + 1;
-       score7 = Math.floor(Math.random() * 10) + 1;
-       score8 = Math.floor(Math.random() * 10) + 1;
-       score9 = Math.floor(Math.random() * 10) + 1;
+       bestDuck = Math.floor(Math.random() * 10) + 1; /* creates a random number between 1 and 10 */
+       bestDuck = "duck" + bestDuck;
+       console.log(bestDuck);
      }
      window.onload = randomize;
      
@@ -38,85 +30,21 @@
          var sceneEl = document.querySelector('a-scene');
          var scoreBoard = document.querySelector('#score');
          
-         /* duck1 */
-         sceneEl.querySelector('#duck1').addEventListener('click', () => {
-           console.log("duck1");
-           console.log(score1);
-           this.data.score += score1;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
-         });
-         
-         /* duck2 */
-         sceneEl.querySelector('#duck2').addEventListener('click', () => {
-           console.log("duck2");
-           console.log(score2);
-           this.data.score += score2;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
-         });
-         
-         /* duck3 */
-         sceneEl.querySelector('#duck3').addEventListener('click', () => {
-           console.log("duck3");
-           console.log(score3);
-           this.data.score += score3;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
-         });
-         
-         /* duck14 */
-         sceneEl.querySelector('#duck4').addEventListener('click', () => {
-           console.log("duck4");
-           console.log(score4);
-           this.data.score += score4;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
-         });
-         
-         /* duck5 */
-         sceneEl.querySelector('#duck5').addEventListener('click', () => {
-           console.log("duck5");
-           console.log(score5);
-           this.data.score += score5;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
-         });
-         
-         /* duck6 */
-         sceneEl.querySelector('#duck6').addEventListener('click', () => {
-           console.log("duck6");
-           console.log(score6);
-           this.data.score += score6;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
-         });
-         
-         /* duck7 */
-         sceneEl.querySelector('#duck7').addEventListener('click', () => {
-           console.log("duck7");
-           console.log(score7);
-           this.data.score += score7;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
-         });
-         
-         /* duck8 */
-         sceneEl.querySelector('#duck8').addEventListener('click', () => {
-           console.log("duck8");
-           console.log(score8);
-           this.data.score += score8;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
-         });
-         
-         /* duck9 */
-         sceneEl.querySelector('#duck9').addEventListener('click', () => {
-           console.log("duck9");
-           console.log(score9);
-           this.data.score += score9;
-           var newScore = 'Score: \n' + this.data.score
-           scoreBoard.setAttribute('text', 'value',  newScore)
+         /* bestduck */
+         sceneEl.querySelector('.duck').addEventListener('click', (e) => {
+           var selected = e.target.getAttribute("id").toString();
+           // var lastChar = selected.substr(selected.length - 1);
+           console.log("duck selected " + selected);
+           if(selected == bestDuck){
+             console.log("winner");
+             scoreBoard.setAttribute('text', 'value',  "Congrat!\nYou win!");
+           }else{
+             scoreBoard.setAttribute('text', 'value',  "Sorry \n Wrong\n Duck");
+           }
+           
+           // this.data.score += score1;
+           // var newScore = 'Score: \n' + this.data.score
+           // scoreBoard.setAttribute('text', 'value',  newScore)
          });
        }
      });
@@ -136,14 +64,15 @@
        <a-animation attribute="position" direction="alternate" dur="1500" repeat="indefinite" to="0 0.3 -6.8"></a-animation>
        <a-animation attribute="rotation" to="0 -360 0" repeat="indefinite" fill="both" easing="linear" dur="100000" > </a-animation>
        <a-sphere id="duck1" color="#f45841" position="1.2 0 0.5" radius="0.2"></a-sphere>
-       <a-sphere id="duck2" color="yellow" position="-1.2 0 0.5" radius="0.2"></a-sphere>
+       <a-sphere id="duck2" color="yellow" position="-1.2 0 0.4" radius="0.2"></a-sphere>
        <a-sphere id="duck3" color="#FFA000" position="-1.2 0 -0.5" radius="0.2"></a-sphere>
-       <a-sphere id="duck4" color="#9bf442" position="1.2 0 -0.5" radius="0.2"></a-sphere>
-       <a-sphere id="duck5" color="#41f4d9" position="0.1 0 0.2 " radius="0.2"></a-sphere>
-       <a-sphere id="duck6" color="#419af4" position="0.5 0 -1.2" radius="0.2"></a-sphere>
-       <a-sphere id="duck7" color="#4f41f4" position="0.5 0 1.2" radius="0.2"></a-sphere>
-       <a-sphere id="duck8" color="#f441e8" position="-0.5 0 -1.2" radius="0.2"></a-sphere>
-       <a-sphere id="duck9" color="#25b248" position="-0.5 0 1.2" radius="0.2"></a-sphere>
+       <a-sphere id="duck4" color="#9bf442" position="1.2 0 -0.6" radius="0.2"></a-sphere>
+       <a-sphere id="duck5" color="#41f4d9" position="-1.5 0 1.5 " radius="0.2"></a-sphere>
+       <a-sphere id="duck6" color="#419af4" position="0.4 0 -1.3" radius="0.2"></a-sphere>
+       <a-sphere id="duck7" color="#4f41f4" position="0.4 0 1.2" radius="0.2"></a-sphere>
+       <a-sphere id="duck8" color="#f441e8" position="-0.4 0 -1.2" radius="0.2"></a-sphere>
+       <a-sphere id="duck9" color="#25b248" position="-0.4 0 1.4" radius="0.2"></a-sphere>
+       <a-sphere id="duck10" color="#25b248" position="1.5 0 1.5" radius="0.2"></a-sphere>
      </a-entity>
        
    <a-entity id="pond" position ="0 0 -7">
