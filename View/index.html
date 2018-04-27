@@ -1,65 +1,93 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hello, WebVR! - A-Frame</title>
-    <meta name="description" content="Hello, WebVR! - A-Frame">
-    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.min.js"></script>
-    <!--<script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>-->
-    <script>
-      AFRAME.registerComponent('game', {
-        schema: {
-          el: {
-            type: 'selector'
-          },
-          score:{
-            type: 'int',
-            default: 000
-          },
-        },
-        init: function () {
-          var sceneEl = document.querySelector('a-scene'); 
-          var scoreBoard = document.querySelector('#score');
-          sceneEl.querySelector('.duck').addEventListener('click', () => {
-            this.data.score++;
-            var newScore = 'Score: \n' + this.data.score
-            scoreBoard.setAttribute('text', 'value',  newScore)
-          })
-        }
-      });
-      
-    </script>  
-  </head>
-  <body>
-    <a-scene game>
-      <a-sky color="#ECECEC"></a-sky>
-      <a-plane id="ground" position="0 -0.1 0" rotation="-90 0 0" width="60" height="60" color="#52BE80"></a-plane>
-      
-      <a-entity position="0 1.5 0">
-        <a-camera><a-cursor></a-cursor></a-camera>
-      </a-entity>
-      
-      <a-entity class="duck" id="groupofDucks" position="0 0.2 -6.8">
-        <a-animation attribute="position" direction="alternate" dur="1500" repeat="indefinite" to="0 0.3 -6.8"></a-animation>
-        <a-animation attribute="rotation" to="0 -360 0" repeat="indefinite" fill="both" easing="linear" dur="100000" > </a-animation>
-        <a-sphere id="duck1" color="#F1C40F" position="1.2 0 0.5" radius="0.2" handle-events></a-sphere>
-        <a-sphere id="duck2" color="yellow" position="-1.7 0 0.7" radius="0.2"></a-sphere>
-        <a-sphere id="duck3" color="#FFA000" position="-0.7 0 -1.7" radius="0.2"></a-sphere>
-      </a-entity>
+ <head>
+   <title>Hello, WebVR! - A-Frame</title>
+   <meta name="description" content="Hello, WebVR! - A-Frame">
+   <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+   <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.min.js"></script>
+   <!--<script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>-->
+   <script>
+     var bestDuck
+     
+     function randomize(){
+       bestDuck = Math.floor(Math.random() * 10) + 1; /* creates a random number between 1 and 10 */
+       bestDuck = "duck" + bestDuck;
+       console.log(bestDuck);
+     }
+     window.onload = randomize;
+     
+     AFRAME.registerComponent('game', {
+       schema: {
+         el: {
+           type: 'selector'
+         },
+         score:{
+           type: 'int',
+           default: 0
+         },
+       },
+       init: function () {
+         var sceneEl = document.querySelector('a-scene');
+         var scoreBoard = document.querySelector('#score');
          
-    <a-entity id="pond" position ="0 0 -7">
-      <a-torus color="#FF69B4" radius="3" rotation="90 0 0" metalness="0.6"></a-torus>
-      <a-torus color="yellow" radius="3" rotation="90 0 0" metalness="0.6" position="0 0.7 0"></a-torus>
-      <a-ocean width="4" depth="5" position="0 0.3 0" amplitude="0.05" amplitude-variance="0.05" speed="0.1"></a-ocean>
-      <a-circle src="#platform" radius="3" color="#7AD2F7" rotation="-90 0 0" static-body></a-circle>
-    </a-entity>
-      
-    <a-entity id="score" position="-2.5 1 -3.5" rotation="0 30 0" text="value: Score: \n 0; width: 4; align: center; color: black" handle-events>
-     <!--<a-animation attribute="rotation" to="0 405 0"  easing="linear" fill="both" dur="800" begin="updateScore" > </a-animation>-->
-     <a-box color="#fed6fa" position ="0 0 -0.05" scale="0.8 0.6 0.1"> </a-box>
-     <a-box color="#fed6fa" position ="0 -0.7 -0.05" scale="0.1 1 0.1"> </a-box>
+         /* bestduck */
+         sceneEl.querySelector('.duck').addEventListener('click', (e) => {
+           var selected = e.target.getAttribute("id").toString();
+           // var lastChar = selected.substr(selected.length - 1);
+           console.log("duck selected " + selected);
+           if(selected == bestDuck){
+             console.log("winner");
+             scoreBoard.setAttribute('text', 'value',  "Congrat!\nYou win!");
+           }else{
+             scoreBoard.setAttribute('text', 'value',  "Sorry \n Wrong\n Duck");
+           }
+           
+           // this.data.score += score1;
+           // var newScore = 'Score: \n' + this.data.score
+           // scoreBoard.setAttribute('text', 'value',  newScore)
+         });
+       }
+     });
+     
+   </script>  
+ </head>
+ <body>
+   <a-scene game>
+     <a-sky color="#ECECEC"></a-sky>
+     <a-plane id="ground" position="0 -0.1 0" rotation="-90 0 0" width="60" height="60" color="#52BE80"></a-plane>
+     
+     <a-entity position="0 1.5 0">
+       <a-camera><a-cursor></a-cursor></a-camera>
+     </a-entity>
+     
+     <a-entity class="duck" id="groupofDucks" position="0 0.2 -6.8">
+       <a-animation attribute="position" direction="alternate" dur="1500" repeat="indefinite" to="0 0.3 -6.8"></a-animation>
+       <a-animation attribute="rotation" to="0 -360 0" repeat="indefinite" fill="both" easing="linear" dur="100000" > </a-animation>
+       <a-sphere id="duck1" color="#f45841" position="1.2 0 0.5" radius="0.2"></a-sphere>
+       <a-sphere id="duck2" color="yellow" position="-1.2 0 0.4" radius="0.2"></a-sphere>
+       <a-sphere id="duck3" color="#FFA000" position="-1.2 0 -0.5" radius="0.2"></a-sphere>
+       <a-sphere id="duck4" color="#9bf442" position="1.2 0 -0.6" radius="0.2"></a-sphere>
+       <a-sphere id="duck5" color="#41f4d9" position="-1.5 0 1.5 " radius="0.2"></a-sphere>
+       <a-sphere id="duck6" color="#419af4" position="0.4 0 -1.3" radius="0.2"></a-sphere>
+       <a-sphere id="duck7" color="#4f41f4" position="0.4 0 1.2" radius="0.2"></a-sphere>
+       <a-sphere id="duck8" color="#f441e8" position="-0.4 0 -1.2" radius="0.2"></a-sphere>
+       <a-sphere id="duck9" color="#25b248" position="-0.4 0 1.4" radius="0.2"></a-sphere>
+       <a-sphere id="duck10" color="#25b248" position="1.5 0 1.5" radius="0.2"></a-sphere>
+     </a-entity>
+       
+   <a-entity id="pond" position ="0 0 -7">
+     <a-torus color="#FF69B4" radius="3" rotation="90 0 0" metalness="0.6"></a-torus>
+     <a-torus color="yellow" radius="3" rotation="90 0 0" metalness="0.6" position="0 0.7 0"></a-torus>
+     <a-ocean width="4" depth="5" position="0 0.3 0" amplitude="0.05" amplitude-variance="0.05" speed="0.1"></a-ocean>
+     <a-circle src="#platform" radius="3" color="#7AD2F7" rotation="-90 0 0" static-body></a-circle>
    </a-entity>
-      
-    </a-scene>
-  </body>
+     
+   <a-entity id="score" position="-0.5 2 -11" text="value: Score: \n 0; width: 4; align: center; color: black" handle-events>
+    <!--<a-animation attribute="rotation" to="0 405 0"  easing="linear" fill="both" dur="800" begin="updateScore" > </a-animation>-->
+    <a-box color="#fed6fa" position ="0 0 -0.05" scale="0.8 0.6 0.1"> </a-box>
+    <a-box color="#fed6fa" position ="0 -0.7 -0.05" scale="0.1 1 0.1"> </a-box>
+  </a-entity>
+     
+   </a-scene>
+ </body>
 </html>
